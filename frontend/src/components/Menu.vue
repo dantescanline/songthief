@@ -1,0 +1,93 @@
+<template>
+  <div class="layout">
+    <div class="logo" @click.stop="change">
+      <span class="logo-text">Songthief</span>
+      <span class="emoji">{{ emoji }}</span>&nbsp;
+    </div>
+    <div class="buttons-area">
+      <router-link to="/">
+        <div class="nav-button" :class="{ current: isCurrent('home') }">Home</div>
+      </router-link>
+      <router-link to="/new">
+        <div class="nav-button" :class="{ current: isCurrent('new') }">Add Song</div>
+      </router-link>
+      <router-link to="/about">
+        <div class="nav-button" :class="{ current: isCurrent('about') }">About</div>
+      </router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+const emojis = ['🎵', '💰', '👽', '🔑', '🔓', '🚫', '🐼', 'Ⓐ', '🏴', '✔️', '😂']
+
+export default {
+  data: function () {
+    return {
+      emoji: 'X'
+    }
+  },
+  mounted() {
+    this.change()
+  },
+  methods: {
+    change() {
+      this.emoji = emojis[Math.floor(Math.random() * emojis.length)]
+    },
+    isCurrent(input) {
+      return (this.$route.name === input)
+    }
+  }
+}
+</script>
+
+<style scoped>
+.layout {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+}
+
+.buttons-area {
+  display: flex;
+}
+
+.emoji {
+  padding-left: 10px;
+}
+
+.emoji:hover {
+  cursor: pointer;
+}
+
+.nav-button {
+  padding: 2px 20px;
+  margin-right: 0px;
+  color: rgba(235, 235, 235, 0.64);
+}
+
+.buttons-area a {
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  cursor: pointer;
+  color: white;
+}
+
+.current {
+  color: white;
+}
+
+.logo {
+  font-size: 20px;
+  color: grey;
+  user-select: none;
+  text-align: left;
+  padding-top: 3px;
+  padding-left: 15px;
+}
+
+.logo-text {
+  font-style: italic;
+}
+</style>

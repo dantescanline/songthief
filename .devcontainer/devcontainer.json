@@ -1,0 +1,20 @@
+{
+    "name": "Songthief",
+    "dockerComposeFile": "docker-compose.yml",
+    "runServices": [
+        "db",
+        "app"
+    ],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "forwardPorts": [
+        3000,
+        3001,
+        5050
+    ],
+    "extensions": [
+        "johnsoncodehk.volar",
+        "Prisma.prisma",
+        "cweijan.vscode-mysql-client2"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "database.connections": {
+        "1646744961113": {
+            "host": "db_mysql",
+            "dbPath": "",
+            "port": "3306",
+            "user": "songthief",
+            "authType": "default",
+            "password": "songthiefpassword",
+            "encoding": "utf8",
+            "clientKeyPath": null,
+            "clientCertPath": null,
+            "caPath": null,
+            "database": "songthief",
+            "useSSL": false,
+            "useClearText": false,
+            "usingSSH": false,
+            "showHidden": false,
+            "includeDatabases": null,
+            "dbType": "MySQL",
+            "encrypt": true,
+            "hideSystemSchema": true,
+            "isCluster": false,
+            "connectionUrl": "",
+            "srv": false,
+            "esAuth": "none",
+            "global": false,
+            "key": "1646744961113",
+            "timezone": "+00:00",
+            "ssh": {
+                "host": "",
+                "privateKeyPath": "/root/.ssh/id_rsa",
+                "port": 22,
+                "username": "root",
+                "type": "password",
+                "connectTimeout": 10000,
+                "algorithms": {
+                    "cipher": []
+                }
+            },
+            "connectionKey": "database.connections"
+        }
+    }
+}
