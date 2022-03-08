@@ -15,6 +15,7 @@ export default {
     this.$store.dispatch('fetchHistory')
     this.$store.dispatch('fetchSongs')
     this.$store.dispatch('fetchPlaylists')
+    this.$store.dispatch('fetchAccount')
   }
 }
 </script>
@@ -59,8 +60,8 @@ a:visited {
   /* background: var(--vt-c-black-soft); */
   background: linear-gradient(
     90deg,
-    rgba(40, 9, 30, 1) 0%,
-    rgba(10, 00, 54, 1) 100%
+    rgba(50, 9, 30, 1) 0%,
+    rgba(10, 00, 40, 1) 100%
   );
   box-sizing: content-box;
 }

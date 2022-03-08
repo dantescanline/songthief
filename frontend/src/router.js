@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 import VideoGrid from './components/VideoGrid.vue'
 import NewSong from './components/NewSong.vue'
+import Account from './components/Account.vue'
 import About from './components/About.vue'
 
 // 2. Define some routes
@@ -10,7 +11,8 @@ import About from './components/About.vue'
 const routes = [
   { path: '/', component: VideoGrid, name: 'home' },
   { path: '/new', component: NewSong, name: 'new' },
-  { path: '/about', component: About, name: 'about' }
+  { path: '/account', component: Account, name: 'account' },
+  { path: '/about', component: About, name: 'about' },
 ]
 
 // 3. Create the router instance and pass the `routes` option

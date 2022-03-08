@@ -4,6 +4,8 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import prisma from './lib/prisma.js'
 
+import httpProxy from 'http-proxy'
+
 import session from 'express-session'
 import passport from 'passport'
 import passportConfig from './lib/passport.js' // keep! needs to initialize
@@ -28,6 +30,9 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 app.use(session({
   resave: false,
+  cookie: {
+    sameSite: 'Strict'
+  },
   secret: SESSION_SECRET,
   saveUninitialized: true
 }))
@@ -36,17 +41,22 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(express.static('public'))
-app.use('/users', users)
+app.use('/api/users', users)
 
-app.post('/login', passport.authenticate('local'), (req, res) => {
+app.post('/api/login', passport.authenticate('local'), (req, res) => {
   res.send('Logged In :)')
 })
 
-app.get('/', (req, res) => {
+app.get('/api/logout', (req, res) => {
+  req.logout()
+  res.send({ message: 'okay :)' })
+})
+
+app.get('/api', (req, res) => {
   res.send('okay! welcome to the api')
 })
 
-app.get('/api/songs', ensureAdmin, async (req, res) => {
+app.get('/api/songs', async (req, res) => {
   const songs = await prisma.song.findMany({
     include: {
       playlists: true
@@ -115,6 +125,28 @@ app.get('/api/playlists/:playlistID', async (req, res) => {
   })
   res.send(playlist)
 })
+
+// complicated serving of static web or proxing for dev
+if (process.env.NODE_ENV === 'production') {
+  console.log('production')
+  app.use(express.static('../frontend/dist/', {}))
+} else {
+  console.log('development')
+
+  const proxy = httpProxy.createProxyServer({})
+  proxy.on('error', (error) => {
+    console.log(error)
+  })
+
+  app.get('*', (req, res) => {
+    proxy.web(req, res, { target: 'http://localhost:3001', ws: true })
+  })
+
+  app.post('*', (req, res) => {
+    proxy.web(req, res, { target: 'http://localhost:3001', ws: true })
+  })
+}
+
 
 
 

@@ -10,7 +10,8 @@ export default createStore({
       date: 'asc',
       history: [],
       songs: [],
-      playlists: []
+      playlists: [],
+      account: null
     }
   },
   getters: {
@@ -38,6 +39,9 @@ export default createStore({
     }
   },
   mutations: {
+    SET_ACCOUNT(state, account) {
+      state.account = account
+    },
     SET_SONGS(state, songs) {
       state.songs = songs
     },
@@ -60,6 +64,30 @@ export default createStore({
     }
   },
   actions: {
+    fetchAccount(context) {
+      axios.get('/api/users/account')
+        .then(response => {
+          context.commit('SET_ACCOUNT', response.data.account)
+        })
+    },
+    async login(context, payload) {
+      return axios.post('/api/login', payload)
+        .then((response) => {
+          console.log('success!', response)
+          context.dispatch('fetchAccount')
+          return false
+        })
+        .catch((e) => {
+          console.log('error logging in', e)
+          return 'Error logging in'
+        })
+    },
+    logout(context) {
+      axios.get('/api/logout')
+        .then(() => {
+          context.dispatch('fetchAccount')
+        })
+    },
     fetchSongs(context) {
       axios.get('/api/songs')
         .then(response => {

@@ -11,6 +11,9 @@
       <router-link to="/new">
         <div class="nav-button" :class="{ current: isCurrent('new') }">Add Song</div>
       </router-link>
+      <router-link to="/account">
+        <div class="nav-button" :class="{ current: isCurrent('account') }">Account</div>
+      </router-link>
       <router-link to="/about">
         <div class="nav-button" :class="{ current: isCurrent('about') }">About</div>
       </router-link>
@@ -19,19 +22,24 @@
 </template>
 
 <script>
-const emojis = ['🎵', '💰', '👽', '🔑', '🔓', '🚫', '🐼', 'Ⓐ', '🏴', '✔️', '😂']
+const emojis = ['🎵', '💰', '👽', '🔑', '🛠️', '🚫', '🐼', '🏴', '✔️', '😂']
+
+let emojiTimeout = null
 
 export default {
   data: function () {
     return {
-      emoji: 'X'
+      emoji: '🎵'
     }
   },
   mounted() {
-    this.change()
+    emojiTimeout = setTimeout(this.change, 10000)
+    // this.change()
   },
   methods: {
     change() {
+      clearTimeout(emojiTimeout)
+      emojiTimeout = setTimeout(this.change, 20000)
       this.emoji = emojis[Math.floor(Math.random() * emojis.length)]
     },
     isCurrent(input) {

@@ -16,6 +16,19 @@ router.get('/', async (req, res) => {
   res.send(users)
 })
 
+router.get('/account', async (req, res) => {
+  if (req.user) {
+    return res.send({
+      account: {
+        name: req.user.name,
+        id: req.user.id,
+        admin: req.user.admin
+      }
+    })
+  }
+  return res.send({ account: null })
+})
+
 export async function createUser(name, password, admin = false) {
   return bcrypt.hash(password, 10)
     .then(hash => {
