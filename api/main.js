@@ -10,19 +10,12 @@ import passportConfig from './lib/passport.js' // keep! needs to initialize
 import cookieParser from 'cookie-parser'
 
 import { SESSION_SECRET } from './lib/config.js'
-
-
+import { ensureAdmin, ensureLoggedIn } from './lib/middleware.js'
 
 import users from './users.js'
 
-
 const app = express()
 const port = 3000
-
-const youtubeString = fs.readFileSync('data/youtube.json')
-const youtube = JSON.parse(youtubeString)
-
-
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -53,7 +46,7 @@ app.get('/', (req, res) => {
   res.send('okay! welcome to the api')
 })
 
-app.get('/api/songs', async (req, res) => {
+app.get('/api/songs', ensureAdmin, async (req, res) => {
   const songs = await prisma.song.findMany({
     include: {
       playlists: true
