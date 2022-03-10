@@ -4,6 +4,7 @@
     <div
       class="history-item"
       v-for="video of $store.getters.historyVideos"
+      v-bind:key="video.id"
       @click="setVideo(video.id)"
     >
       <img :src="'https://img.youtube.com/vi/' + video.youtubeID + '/2.jpg'" width="30" />
@@ -23,6 +24,7 @@ export default {
 <style scoped>
 .container {
   overflow-y: auto;
+  scrollbar-width: thin;
   border-radius: 10px 10px;
   padding: 10px;
   background: var(--panel-purple);

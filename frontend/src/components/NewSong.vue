@@ -16,13 +16,12 @@
         </select>
         <div class="span">.</div>
         <div></div>
-        <button @click="submit">Submit</button>
+        <button @click="submit" :disabled="formDisabled">Submit</button>
       </div>
-      <div v-if="message" :class="{ error: hasError }">{{ message }}</div>
+      <div v-if="currentMessage" :class="{ error: hasError }">{{ currentMessage }}</div>
     </div>
     <div>
       <h2>Preview</h2>
-
       <img class="preview-image" :src="'https://img.youtube.com/vi/' + youtubeID + '/0.jpg'" />
     </div>
   </div>
@@ -58,6 +57,25 @@ export default {
           this.message = 'there was an error'
           this.hasError = true
         })
+    }
+  },
+  computed: {
+    formDisabled() {
+      if (!this.$store.state.account) {
+        return true
+      }
+
+      if (!this.title || !this.youtubeID || !this.playlistID) {
+        return true
+      }
+
+      return false
+    },
+    currentMessage() {
+      if (!this.$store.state.account) {
+        return 'Not Logged In'
+      }
+      return this.message
     }
   },
   watch: {
@@ -99,19 +117,6 @@ h2 {
 
 .span {
   grid-column: 1/3;
-}
-
-input {
-  width: 100%;
-  background-color: var(--vt-c-black);
-  border: none;
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: var(--vt-c-text-dark-1);
-}
-
-::placeholder {
-  color: #444;
 }
 
 .label {

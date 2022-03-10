@@ -73,3 +73,51 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
+
+input {
+width: 100%;
+background-color: var(--vt-c-black);
+border: none;
+font-size: 20px;
+margin-bottom: 10px;
+color: var(--vt-c-text-dark-1);
+}
+
+select {
+  width: 100%;
+  background-color: var(--vt-c-black);
+  border: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--vt-c-text-dark-1);
+}
+
+button {
+  background-color:  rgba(50, 9, 30, 1); 
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+button:disabled {
+  background-color: #282828;
+}
+button:disabled:hover {
+  cursor: initial;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+::placeholder {
+  color: var(--vt-c-black-mute);
+}

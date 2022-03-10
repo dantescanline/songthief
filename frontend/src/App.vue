@@ -12,10 +12,10 @@ export default {
     VideoHistory
   },
   mounted() {
-    this.$store.dispatch('fetchHistory')
-    this.$store.dispatch('fetchSongs')
-    this.$store.dispatch('fetchPlaylists')
     this.$store.dispatch('fetchAccount')
+    this.$store.dispatch('fetchHistory')
+
+    this.$store.dispatch('addLogItem', { message: 'App mounted', error: false })
   }
 }
 </script>
@@ -81,6 +81,7 @@ a:visited {
   box-sizing: border-box;
   padding: 10px;
   overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 #right-panel {

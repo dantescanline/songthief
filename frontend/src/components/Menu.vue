@@ -12,10 +12,18 @@
         <div class="nav-button" :class="{ current: isCurrent('new') }">Add Song</div>
       </router-link>
       <router-link to="/account">
-        <div class="nav-button" :class="{ current: isCurrent('account') }">Account</div>
+        <div class="nav-button" :class="{ current: isCurrent('account') }">{{ loginText }}</div>
       </router-link>
+    </div>
+    <div class="right-area">
       <router-link to="/about">
         <div class="nav-button" :class="{ current: isCurrent('about') }">About</div>
+      </router-link>
+      <router-link to="/log">
+        <div class="nav-button" :class="{ current: isCurrent('log') }">
+          <span v-if="$store.state.logHasNotification" style="color: #fff;">⚠️</span>
+          Log
+        </div>
       </router-link>
     </div>
   </div>
@@ -30,6 +38,15 @@ export default {
   data: function () {
     return {
       emoji: '🎵'
+    }
+  },
+  computed: {
+    loginText() {
+      if (this.$store.state.account) {
+        return 'Account'
+      } else {
+        return 'Login'
+      }
     }
   },
   mounted() {
@@ -52,10 +69,16 @@ export default {
 <style scoped>
 .layout {
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: 170px 1fr 215px;
 }
 
 .buttons-area {
+  display: flex;
+}
+
+.right-area {
+  text-align: right;
+  flex-flow: row-reverse;
   display: flex;
 }
 
@@ -73,7 +96,7 @@ export default {
   color: rgba(235, 235, 235, 0.64);
 }
 
-.buttons-area a {
+a {
   text-decoration: none;
 }
 

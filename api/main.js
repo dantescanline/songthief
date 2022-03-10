@@ -15,6 +15,7 @@ import { SESSION_SECRET } from './lib/config.js'
 import { ensureAdmin, ensureLoggedIn } from './lib/middleware.js'
 
 import users from './users.js'
+import songs from './songs.js'
 
 const app = express()
 const port = 3000
@@ -41,7 +42,15 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(express.static('public'))
+
 app.use('/api/users', users)
+app.use('/api/songs', songs)
+
+
+app.get('/api', (req, res) => {
+  res.send('okay! welcome to the api')
+})
+
 
 app.post('/api/login', passport.authenticate('local'), (req, res) => {
   res.send('Logged In :)')
@@ -52,54 +61,7 @@ app.get('/api/logout', (req, res) => {
   res.send({ message: 'okay :)' })
 })
 
-app.get('/api', (req, res) => {
-  res.send('okay! welcome to the api')
-})
 
-app.get('/api/songs', async (req, res) => {
-  const songs = await prisma.song.findMany({
-    include: {
-      playlists: true
-    }
-  })
-  res.send(songs)
-  // res.send({ items: youtube.slice(0, 100) });
-})
-
-
-app.post('/api/songs', async (req, res) => {
-  let playlist = await prisma.playlist.findFirst({
-    where: {
-      id: req.body.playlistID
-    }
-  })
-
-  // grab any damn playlist if need be
-  if (!playlist) {
-    playlist = await prisma.playlist.findFirst()
-  }
-
-  let finalInput = {
-    title: req.body.title,
-    uploader: req.body.uploader,
-    youtubeID: req.body.youtubeID,
-    playlists: {
-      connect: [{ id: playlist.id }]
-    }
-  }
-
-  prisma.song.create({
-    data: finalInput
-  })
-    .then(() => {
-      res.send('okay!')
-    })
-    .catch((e) => {
-      res.status(400)
-      console.log(e)
-      res.send(e)
-    })
-})
 
 app.get('/api/playlists', async (req, res) => {
   res.send(await prisma.playlist.findMany())

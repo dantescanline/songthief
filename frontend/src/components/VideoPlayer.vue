@@ -14,12 +14,12 @@
       <br />
       <span class="title">{{ currentVideo.title }}</span>
       <br />
-      <span class="meta-info">uploaded by {{ currentVideo.uploader }} - {{ timeSpan }}</span>
+      <span class="meta-info" v-if="currentVideo.uploader">uploaded by {{ currentVideo.uploader }}</span>
       <div v-if="currentVideo.playlists">
         Playlists
         <PlaylistChip
           v-for="playlist in currentVideo.playlists"
-          v-bind:id="playlist.id"
+          v-bind:key="playlist.id"
           :playlist="playlist"
         />
       </div>
@@ -37,14 +37,6 @@ export default {
   computed: {
     currentVideo() {
       return this.$store.getters.currentVideo
-    },
-    timeSpan() {
-      if (this.currentVideo) {
-        var minutes = Math.floor(this.currentVideo.duration / 60);
-        var seconds = this.currentVideo.duration - minutes * 60;
-        return `${minutes}:${zfill(seconds, 2)}`
-      }
-      return ''
     }
   }
 }

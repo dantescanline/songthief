@@ -11,7 +11,9 @@ export default createStore({
       history: [],
       songs: [],
       playlists: [],
-      account: null
+      account: null,
+      log: [],
+      logHasNotification: false
     }
   },
   getters: {
@@ -61,6 +63,15 @@ export default createStore({
     },
     SET_ALL_HISTORY(state, data) {
       state.history = data
+    },
+    ADD_LOG_ITEM(state, log) {
+      log.id = Math.floor(Math.random() * 1032419).toString()
+      log.time = new Date().toISOString()
+      state.log.push(log)
+
+      if (log.error) {
+        state.logHasNotification = true
+      }
     }
   },
   actions: {
@@ -68,6 +79,10 @@ export default createStore({
       axios.get('/api/users/account')
         .then(response => {
           context.commit('SET_ACCOUNT', response.data.account)
+          if (response.data.account) {
+            context.dispatch('fetchSongs')
+            context.dispatch('fetchPlaylists')
+          }
         })
     },
     async login(context, payload) {
@@ -75,10 +90,12 @@ export default createStore({
         .then((response) => {
           console.log('success!', response)
           context.dispatch('fetchAccount')
+          context.dispatch('addLogItem', { message: 'logged in', error: false })
           return false
         })
         .catch((e) => {
           console.log('error logging in', e)
+          context.dispatch('addLogItem', { message: 'error logging in', error: true })
           return 'Error logging in'
         })
     },
@@ -92,6 +109,10 @@ export default createStore({
       axios.get('/api/songs')
         .then(response => {
           context.commit('SET_SONGS', response.data)
+        }).catch(e => {
+          if (e.response.status == 401) {
+            context.commit('SET_SONGS', [])
+          }
         })
     },
     async createSong(context, payload) {
@@ -121,6 +142,10 @@ export default createStore({
         const data = JSON.parse(history)
         context.commit("SET_ALL_HISTORY", data)
       }
+    },
+    // expect message and error
+    addLogItem(context, logPayload) {
+      context.commit('ADD_LOG_ITEM', logPayload)
     }
   }
 })

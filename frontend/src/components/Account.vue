@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-if="$store.state.account">
       <h2>Logged in</h2>
       <h3>{{ $store.state.account.name }} - id {{ $store.state.account.id }}</h3>
@@ -20,6 +20,10 @@
 </template>
 
 <style scoped>
+.container {
+  width: 500px;
+  margin: 0 auto;
+}
 </style>
 
 <script>

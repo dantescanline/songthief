@@ -20,6 +20,7 @@
         <div>{{ video.title }}</div>
       </div>
     </div>
+    <h3 v-if="!$store.state.account">Not logged In</h3>
   </div>
 </template>
 <script>
@@ -60,7 +61,7 @@ export default {
 <style scoped>
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 0.33fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 0.33fr));
   grid-gap: 10px;
 }
 
@@ -73,6 +74,7 @@ export default {
   background: var(--vt-c-black);
   padding: 10px;
   border: 1px solid var(--vt-c-black);
+  line-height: 1.2;
 }
 
 .selected {
@@ -81,7 +83,49 @@ export default {
 
 .grid-item:hover {
   cursor: pointer;
-  background: var(--vt-c-black-mute);
+}
+
+.grid-item:hover {
+  background: linear-gradient(155deg, #32091e, #0a0028);
+  background-size: 400% 400%;
+
+  -webkit-animation: BackgroundAnimation 5s ease infinite;
+  -moz-animation: BackgroundAnimation 5s ease infinite;
+  animation: BackgroundAnimation 5s ease infinite;
+}
+
+@-webkit-keyframes BackgroundAnimation {
+  0% {
+    background-position: 25% 0%;
+  }
+  50% {
+    background-position: 76% 100%;
+  }
+  100% {
+    background-position: 25% 0%;
+  }
+}
+@-moz-keyframes BackgroundAnimation {
+  0% {
+    background-position: 25% 0%;
+  }
+  50% {
+    background-position: 76% 100%;
+  }
+  100% {
+    background-position: 25% 0%;
+  }
+}
+@keyframes BackgroundAnimation {
+  0% {
+    background-position: 25% 0%;
+  }
+  50% {
+    background-position: 76% 100%;
+  }
+  100% {
+    background-position: 25% 0%;
+  }
 }
 
 .grid-item img {

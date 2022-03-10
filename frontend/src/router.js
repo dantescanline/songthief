@@ -4,6 +4,7 @@ import VideoGrid from './components/VideoGrid.vue'
 import NewSong from './components/NewSong.vue'
 import Account from './components/Account.vue'
 import About from './components/About.vue'
+import Log from './components/Log.vue'
 
 // 2. Define some routes
 // Each route should map to a component.
@@ -13,6 +14,7 @@ const routes = [
   { path: '/new', component: NewSong, name: 'new' },
   { path: '/account', component: Account, name: 'account' },
   { path: '/about', component: About, name: 'about' },
+  { path: '/log', component: Log, name: 'log' }
 ]
 
 // 3. Create the router instance and pass the `routes` option
