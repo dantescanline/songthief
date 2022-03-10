@@ -16,6 +16,19 @@ Songthief **doesn't use any external APIs** for managing song info, making it ve
 
 When you click a particular song, we add the owning service's embed media player directly onto the page and auto play it. Just like if you hit share->embed on youtube. This is usually as fast (or faster!) than clicking links within a given service's website, probably because we don't have any frontend or account info overhead but the youtube CDNs are crazy fast. Likewise album art or other thumbnails are linked directly from those same CDNS.
 
+## Deployment
+
+The following environment variables control the app.
+The shadow database needs to be a second (empty) database with open permissions to the user.
+```
+MYSQL_DATABASE=songthief
+MYSQL_DATABASE_SHADOW=prisma_shadow
+MYSQL_USER=songthief
+MYSQL_PASSWORD=songthiefpassword
+INITIAL_ADMIN_USER=admin
+INITIAL_ADMIN_PASSWORD=apfelbauer
+```
+
 ## Roadmap
 
 - basic <-- here now
@@ -25,7 +38,7 @@ When you click a particular song, we add the owning service's embed media player
 - multi user with sharing / playlist visibility
 - recommendations? manually currated perhaps
 
-## Setup
+## Developer Setup
 There are two directories, frontend and api. frontend is a totally standard vue3/vuex/vue-router singlepage app. It only needs to talk to the songthief api. When built it's served as static files directly from the api, so you dont need to run two servers in production. The api is an express app using prisma for the database connection. So far we do not use typescript.
 
 run `npm install` in both subdirectories, obviously :)

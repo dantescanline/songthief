@@ -11,11 +11,12 @@ import passport from 'passport'
 import passportConfig from './lib/passport.js' // keep! needs to initialize
 import cookieParser from 'cookie-parser'
 
-import { SESSION_SECRET } from './lib/config.js'
+import { SESSION_SECRET, envs } from './lib/config.js'
 import { ensureAdmin, ensureLoggedIn } from './lib/middleware.js'
 
 import users from './users.js'
 import songs from './songs.js'
+import playlists from './playlists.js'
 
 const app = express()
 const port = 3000
@@ -45,6 +46,7 @@ app.use(express.static('public'))
 
 app.use('/api/users', users)
 app.use('/api/songs', songs)
+app.use('/api/playlists', playlists)
 
 
 app.get('/api', (req, res) => {
@@ -63,38 +65,13 @@ app.get('/api/logout', (req, res) => {
 
 
 
-app.get('/api/playlists', async (req, res) => {
-  res.send(await prisma.playlist.findMany())
-})
-
-app.get('/api/playlists/:playlistID', async (req, res) => {
-  const id = parseInt(req.params.playlistID)
-  if (isNaN(id)) {
-    res.status(400)
-    return res.send('bad input playlist id')
-  }
-  const playlist = await prisma.playlist.findFirst({
-    where: {
-      id
-    },
-    include: {
-      songs: {
-        select: {
-          id: true
-        }
-      }
-    }
-  })
-  res.send(playlist)
-})
-
 // complicated serving of static web or proxing for dev
 if (process.env.NODE_ENV === 'production') {
-  console.log('production')
+  console.log('Production')
+  assertEnvs()
   app.use(express.static('../frontend/dist/', {}))
 } else {
-  console.log('development')
-
+  console.log('Development mode')
   const proxy = httpProxy.createProxyServer({})
   proxy.on('error', (error) => {
     console.log(error)
@@ -109,9 +86,16 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-
-
-
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Listening on ${port}`)
 })
+
+function assertEnvs() {
+  for (const env of envs) {
+    if (process.env[env] === undefined) {
+      // this should throw maybe?
+      console.log(`MISSING ENV: "${env}"`)
+    }
+
+  }
+}

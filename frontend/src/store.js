@@ -80,6 +80,7 @@ export default createStore({
         .then(response => {
           context.commit('SET_ACCOUNT', response.data.account)
           if (response.data.account) {
+            context.dispatch('addLogItem', { message: 'Account fetched', error: false })
             context.dispatch('fetchSongs')
             context.dispatch('fetchPlaylists')
           }
@@ -88,14 +89,13 @@ export default createStore({
     async login(context, payload) {
       return axios.post('/api/login', payload)
         .then((response) => {
-          console.log('success!', response)
+          context.dispatch('addLogItem', { message: 'Logged in', error: false })
           context.dispatch('fetchAccount')
-          context.dispatch('addLogItem', { message: 'logged in', error: false })
           return false
         })
         .catch((e) => {
           console.log('error logging in', e)
-          context.dispatch('addLogItem', { message: 'error logging in', error: true })
+          context.dispatch('addLogItem', { message: 'error logging in', error: false })
           return 'Error logging in'
         })
     },

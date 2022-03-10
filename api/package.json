@@ -17,7 +17,8 @@
   },
   "scripts": {
     "db-init": "npx prisma generate && npx prisma db push && npx prisma db seed",
-    "dev": "nodemon node main.js"
+    "dev": "nodemon node main.js",
+    "production": "NODE_ENV=production node main.js"
   },
   "type": "module",
   "devDependencies": {

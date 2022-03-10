@@ -39,6 +39,44 @@
                 }
             },
             "connectionKey": "database.connections"
+        },
+        "1646929107547": {
+            "key": "1646929107547",
+            "host": "db_mysql",
+            "port": "3306",
+            "user": "root",
+            "password": "passwordo",
+            "timezone": "+00:00",
+            "useSSL": false,
+            "isCluster": false,
+            "clientCertPath": null,
+            "clientKeyPath": null,
+            "ssh": {
+                "host": "",
+                "privateKeyPath": "/root/.ssh/id_rsa",
+                "port": 22,
+                "username": "root",
+                "type": "password",
+                "connectTimeout": 10000,
+                "algorithms": {
+                    "cipher": []
+                }
+            },
+            "usingSSH": false,
+            "esAuth": "none",
+            "encoding": "utf8",
+            "showHidden": false,
+            "connectionKey": "database.connections",
+            "hideSystemSchema": true,
+            "global": false,
+            "dbType": "MySQL",
+            "connectionUrl": "",
+            "encrypt": true,
+            "dbPath": "",
+            "authType": "default",
+            "includeDatabases": null,
+            "database": null,
+            "name": "ROOT @songthief"
         }
     }
 }
