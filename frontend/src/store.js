@@ -99,6 +99,22 @@ export default createStore({
           return 'Error logging in'
         })
     },
+    async changePassword(context, payload) {
+      return axios.put('/api/users/account/password', payload)
+        .then((response) => {
+          context.dispatch('addLogItem', { message: 'Changed password', error: false })
+          context.dispatch('fetchAccount')
+          return false
+        })
+        .catch((e) => {
+          console.log(e)
+          context.dispatch('addLogItem', { message: 'error changing password', error: false })
+          if (e.response.data.message) {
+            return e.response.data.message
+          }
+          return 'Error changing password'
+        })
+    },
     logout(context) {
       axios.get('/api/logout')
         .then(() => {

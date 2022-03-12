@@ -14,14 +14,26 @@ passport.use(new localStrategy(async function verify(username, password, cb) {
     return cb(null, false, { message: 'Incorrect username or password' })
   }
 
-  bcrypt.compare(password, user.password, function (error, result) {
-    if (result) {
-      return cb(null, user);
-    }
-    return cb(null, false, { message: 'Incorrect username or password' })
-  })
+  const correctPassword = await checkUserPassword(password, user.password)
+  if (correctPassword) {
+    return cb(null, user)
+  }
+
+  cb(null, false, { message: 'Incorrect username or password' })
 
 }));
+
+// safe promise for checking password
+export async function checkUserPassword(password, hashedPassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, hashedPassword, function (error, result) {
+      if (result) {
+        return resolve(true)
+      }
+      resolve(false)
+    })
+  })
+}
 
 
 passport.serializeUser(function (user, done) {

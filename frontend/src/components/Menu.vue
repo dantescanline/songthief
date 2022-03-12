@@ -111,7 +111,7 @@ a {
 
 .logo {
   font-size: 20px;
-  color: grey;
+  color: rgb(173, 116, 242);
   user-select: none;
   text-align: left;
   padding-top: 3px;
@@ -120,5 +120,6 @@ a {
 
 .logo-text {
   font-style: italic;
+  font-weight: 600 !important;
 }
 </style>

@@ -22,7 +22,11 @@
     </div>
     <div>
       <h2>Preview</h2>
-      <img class="preview-image" :src="'https://img.youtube.com/vi/' + youtubeID + '/0.jpg'" />
+      <img
+        v-if="youtubeID"
+        class="preview-image"
+        :src="'https://img.youtube.com/vi/' + youtubeID + '/0.jpg'"
+      />
     </div>
   </div>
 </template>
@@ -88,6 +92,11 @@ export default {
       } else {
         this.youtubeID = newLink
       }
+    }
+  },
+  mounted() {
+    if (this.$store.state.playlists.length > 0) {
+      this.playlistID = this.$store.state.playlists[0].id
     }
   }
 }
