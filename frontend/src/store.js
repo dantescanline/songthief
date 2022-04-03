@@ -7,6 +7,7 @@ export default createStore({
   state() {
     return {
       currentVideoID: 0,
+      editingSong: null,
       date: 'asc',
       history: [],
       songs: [],
@@ -21,12 +22,18 @@ export default createStore({
       if (state.currentVideoID) {
         for (const video of state.songs) {
           if (video.id === state.currentVideoID) {
-            console.log(video)
             return video
           }
         }
       }
       return null
+    },
+    getSongByID(state, videoID) {
+      return () => {
+        return state.songs.find((s) => {
+          return s.id === videoID
+        })
+      }
     },
     historyVideos(state) {
       const vids = state.history.map(id => {
@@ -148,7 +155,6 @@ export default createStore({
         })
     },
     setCurrentVideo(context, videoID) {
-      console.log(videoID)
       context.commit("SET_CURRENT_VIDEO", videoID)
       context.commit("SET_HISTORY", videoID)
     },

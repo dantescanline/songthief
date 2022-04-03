@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 import VideoGrid from './components/VideoGrid.vue'
 import NewSong from './components/NewSong.vue'
+import EditSong from './components/EditSong.vue'
 import Account from './components/Account.vue'
 import About from './components/About.vue'
 import Log from './components/Log.vue'
@@ -12,6 +13,7 @@ import Log from './components/Log.vue'
 const routes = [
   { path: '/', component: VideoGrid, name: 'home' },
   { path: '/new', component: NewSong, name: 'new' },
+  { path: '/edit', component: EditSong, name: 'edit' },
   { path: '/account', component: Account, name: 'account' },
   { path: '/about', component: About, name: 'about' },
   { path: '/log', component: Log, name: 'log' }

@@ -14,7 +14,7 @@ async function main() {
   await prisma.song.deleteMany()
   await prisma.user.deleteMany()
 
-  const user = await createUser('jack', 'not hashed!!!', true)
+  const user = await createUser('dante', 'ni password', true)
 
   const myPlaylist = await prisma.playlist.create({
     data: {

@@ -50,7 +50,7 @@ export default {
       } else {
         let search = this.searchString.toLowerCase()
         return videos.filter(video => {
-          return video.title.toLowerCase().includes(search)
+          return (video.title.toLowerCase() + video.uploader.toLowerCase()).includes(search)
         }).slice(0, 100)
       }
     }

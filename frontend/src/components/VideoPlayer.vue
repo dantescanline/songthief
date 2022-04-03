@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3>Now Playing... {{ currentVideo ? '' : ' nothing' }}</h3>
+    <h3 v-if="!currentVideo">Now Playing... nothing</h3>
     <div v-if="currentVideo">
       <iframe
         width="480"
@@ -12,8 +12,7 @@
         allowfullscreen
       ></iframe>
       <br />
-      <span class="title">{{ currentVideo.title }}</span>
-      <br />
+      <h3>{{ currentVideo.title }}</h3>
       <span class="meta-info" v-if="currentVideo.uploader">uploaded by {{ currentVideo.uploader }}</span>
       <div v-if="currentVideo.playlists">
         Playlists
@@ -23,6 +22,7 @@
           :playlist="playlist"
         />
       </div>
+      <span @click="editVideo">Edit</span>
     </div>
   </div>
 </template>
@@ -37,6 +37,12 @@ export default {
   computed: {
     currentVideo() {
       return this.$store.getters.currentVideo
+    }
+  },
+  methods: {
+    editVideo() {
+      this.$store.state.editingSong = this.currentVideo
+      this.$router.push({ name: 'edit' })
     }
   }
 }

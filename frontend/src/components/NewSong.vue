@@ -2,7 +2,6 @@
   <div class="split">
     <div>
       <div class="form">
-        <h2 class="span">Add new song</h2>
         <span class="label">Title</span>
         <input hint="title" v-model="title" placeholder="Best song ever" />
         <span class="label">Youtube ID</span>
