@@ -48,7 +48,7 @@
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
 
-    --panel-purple: rgb(15, 10, 20);
+    --panel-purple: rgb(24, 15, 32);
   }
 }
 
@@ -75,14 +75,13 @@ body {
 }
 
 
-
 input {
-width: 100%;
-background-color: var(--vt-c-black);
-border: none;
-font-size: 20px;
-margin-bottom: 10px;
-color: var(--vt-c-text-dark-1);
+  width: 100%;
+  background-color: var(--vt-c-black);
+  border: none;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--vt-c-text-dark-1);
 }
 
 select {
@@ -95,7 +94,7 @@ select {
 }
 
 button {
-  background-color:  rgba(50, 9, 30, 1); 
+  background-color: rgba(50, 9, 30, 1);
   border: none;
   border-radius: 5px;
   color: white;
@@ -110,6 +109,7 @@ button {
 button:disabled {
   background-color: #282828;
 }
+
 button:disabled:hover {
   cursor: initial;
 }

@@ -11,24 +11,26 @@
       <br />
       <h3>Change Password</h3>
 
-      <input type="text" v-model="oldPassword" placeholder="old password" />
+      <input :disabled="disable" type="text" v-model="oldPassword" placeholder="old password" />
       <br />
 
-      <input type="text" v-model="newPassword" placeholder="new password" />
+      <input :disabled="disable" type="text" v-model="newPassword" placeholder="new password" />
       <br />
       <button @click="submitChangePassword" :disabled="disable">Submit</button>
       <div v-if="errorMessage">{{ errorMessage }}</div>
     </div>
     <div v-else>
-      <h2>Login</h2>
+      <form @submit.prevent="submitLogin">
+        <h2>Login</h2>
 
-      <input type="text" v-model="username" placeholder="username" />
-      <br />
+        <input type="text" v-model="username" placeholder="username" />
+        <br />
 
-      <input type="text" v-model="password" placeholder="password" />
-      <br />
-      <button @click="submitLogin" :disabled="disable">Log In</button>
-      <div v-if="errorMessage">{{ errorMessage }}</div>
+        <input type="text" v-model="password" placeholder="password" />
+        <br />
+        <button @click="submitLogin" :disabled="disable">Log In</button>
+        <div v-if="errorMessage">{{ errorMessage }}</div>
+      </form>
     </div>
   </div>
 </template>

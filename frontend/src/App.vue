@@ -43,6 +43,7 @@ export default {
 a {
   color: white;
 }
+
 a:visited {
   color: white;
 }
@@ -58,11 +59,7 @@ a:visited {
   color: var(--vt-c-white-soft);
   height: 40px;
   /* background: var(--vt-c-black-soft); */
-  background: linear-gradient(
-    90deg,
-    rgba(50, 9, 30, 1) 0%,
-    rgba(10, 00, 40, 1) 100%
-  );
+  background: linear-gradient(90deg, rgb(77, 16, 47) 0%, rgb(25, 4, 89) 100%);
   box-sizing: content-box;
 }
 

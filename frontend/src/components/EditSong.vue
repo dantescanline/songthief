@@ -7,9 +7,6 @@
       <span class="label">Youtube ID</span>
       <input v-model="youtubeID" placeholder="video id or full link" />
       <span class="label">Playlist</span>
-      <!-- <select name="list" v-model="playlistID">
-        <option v-for="playlist in $store.state.playlists" :value="playlist.id">{{ playlist.title }}</option>
-      </select>-->
       <div class="span">.</div>
       <div></div>
       <button @click="submit" :disabled="formDisabled">Submit</button>

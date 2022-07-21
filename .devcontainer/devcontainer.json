@@ -13,7 +13,7 @@
         5050
     ],
     "extensions": [
-        "johnsoncodehk.volar",
+        "Vue.volar",
         "Prisma.prisma",
         "cweijan.vscode-mysql-client2"
     ]
