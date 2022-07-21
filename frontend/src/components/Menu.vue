@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="logo" @click.stop="change">
+    <div class="logo" @click.stop="triggerChange">
       <span class="logo-text">Songthief</span>
       <span class="emoji">{{ emoji }}</span>&nbsp;
     </div>
@@ -51,9 +51,15 @@ export default {
   },
   mounted() {
     emojiTimeout = setTimeout(this.change, 10000)
+    const snd = new Audio('cursor2.wav')
     // this.change()
   },
   methods: {
+    triggerChange() {
+      const snd = new Audio('cursor2.wav')
+      snd.play()
+      this.change()
+    },
     change() {
       clearTimeout(emojiTimeout)
       emojiTimeout = setTimeout(this.change, 20000)
